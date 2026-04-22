@@ -7,7 +7,6 @@
 <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH6AQQDCAo6y1PSQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAAhUlEQVQ4y2NgYGD4z0BFwERFWwc5GBkYGP4zUGEAIwMVbQUAfQME/v//TxWbGBgYGP4TaQMDA8P/IxgYGBj+GxkYGP4bGRgY/hsZGBj+GxkYGP4bGRgY/hsZGBj+GxkYGP4bGRgY/hsZGBj+GxkYGP4bGRgY/hsZGBj+GxkYGP4bGRgY/hs0AADJxRcR1YQAAAAASUVORK5CYII=">
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* ── THEMES ──────────────────────────────────────────────────────────── */
 :root {
   --bg:#0a0a0f; --surface:#13131f; --border:#1e1e30;
   --pending-bg:#111120; --pending-border:#252540; --pending-text:#3a3a58;
@@ -48,11 +47,7 @@ body.theme-cream {
 * { margin:0; padding:0; box-sizing:border-box; }
 body { background:var(--bg); color:var(--text-main); font-family:'Syne',sans-serif; min-height:100vh; transition:background .3s,color .3s; }
 
-/* ── THEME SWITCHER ──────────────────────────────────────────────────── */
-.theme-switcher {
-  position:fixed; top:12px; right:16px;
-  display:flex; align-items:center; gap:6px; z-index:100;
-}
+.theme-switcher { position:fixed; top:12px; right:16px; display:flex; align-items:center; gap:6px; z-index:100; }
 .theme-swatch { width:22px; height:22px; border-radius:6px; cursor:pointer; border:2px solid transparent; transition:transform .15s,border-color .15s; flex-shrink:0; }
 .theme-swatch:hover { transform:scale(1.15); }
 .theme-swatch.active { border-color:var(--accent) !important; }
@@ -61,15 +56,14 @@ body { background:var(--bg); color:var(--text-main); font-family:'Syne',sans-ser
 .swatch-aqua  { background:#7ecece; border-color:#5aafaf; }
 .swatch-cream { background:#f5e6cc; border-color:#c8b090; }
 
-/* ── CONTAINER ───────────────────────────────────────────────────────── */
-.container { position:relative; z-index:1; max-width:1500px; margin:0 auto; padding:40px 30px; }
+.container { position:relative; z-index:1; max-width:1600px; margin:0 auto; padding:40px 30px; }
 
 header { text-align:center; margin-bottom:32px; }
 header h1 { font-weight:800; font-size:2.8rem; letter-spacing:-1px; color:var(--header-color); text-transform:uppercase; transition:color .3s; }
 header h1 span { color:var(--accent); }
 header p { font-family:'Space Mono',monospace; font-size:.7rem; letter-spacing:3px; color:var(--text-sub); margin-top:6px; text-transform:uppercase; transition:color .3s; }
 
-/* ── STATS ───────────────────────────────────────────────────────────── */
+/* STATS */
 .stats { display:flex; justify-content:center; margin-bottom:32px; background:var(--surface); border:1px solid var(--border); border-radius:14px; overflow:hidden; width:fit-content; margin-left:auto; margin-right:auto; transition:background .3s,border-color .3s; }
 .stat { padding:14px 26px; text-align:center; border-right:1px solid var(--border); transition:border-color .3s; }
 .stat:last-child { border-right:none; }
@@ -82,7 +76,7 @@ header p { font-family:'Space Mono',monospace; font-size:.7rem; letter-spacing:3
 .s-pct      .stat-number { color:var(--accent); }
 .s-total    .stat-number { color:var(--header-color); }
 
-/* ── LEGEND ──────────────────────────────────────────────────────────── */
+/* LEGEND */
 .legend { display:flex; justify-content:center; gap:24px; margin-bottom:36px; }
 .legend-item { display:flex; align-items:center; gap:8px; font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:1px; color:var(--text-sub); text-transform:uppercase; transition:color .3s; }
 .legend-dot { width:12px; height:12px; border-radius:3px; border:2px solid; transition:all .3s; }
@@ -91,13 +85,7 @@ header p { font-family:'Space Mono',monospace; font-size:.7rem; letter-spacing:3
 .legend-dot.regular   { background:var(--regular-bg);  border-color:var(--regular-border); }
 .legend-dot.approved  { background:var(--approved-bg); border-color:var(--approved-border); }
 
-/* ── TRAMO ROWS ──────────────────────────────────────────────────────── */
-.section-row { display:flex; align-items:stretch; border:1px solid var(--border); border-radius:14px; overflow:hidden; background:var(--surface); margin-bottom:10px; transition:background .3s,border-color .3s; }
-.section-label { width:130px; min-width:130px; display:flex; align-items:center; justify-content:center; padding:16px 10px; font-family:'Space Mono',monospace; font-size:.58rem; letter-spacing:2px; text-transform:uppercase; color:var(--accent); border-right:1px solid var(--border); text-align:center; line-height:1.7; transition:color .3s,border-color .3s; }
-.section-subjects { flex:1; display:grid; grid-template-columns:repeat(6,1fr); gap:10px; padding:12px; }
-.section-subjects.cols-5 { grid-template-columns:repeat(5,1fr); }
-
-/* ── SUBJECT CARD ────────────────────────────────────────────────────── */
+/* SUBJECT CARD */
 .subject {
   background:var(--pending-bg); border:1.5px solid var(--pending-border);
   border-radius:10px; padding:10px 12px 16px 12px;
@@ -105,10 +93,10 @@ header p { font-family:'Space Mono',monospace; font-size:.7rem; letter-spacing:3
   position:relative; user-select:none;
   display:flex; flex-direction:column; gap:4px;
   overflow:visible; min-height:56px; box-sizing:border-box;
+  width:100%;
 }
 .subject.clickable { cursor:pointer; }
 .subject.clickable:hover { transform:translateY(-2px); filter:brightness(1.12); }
-
 .subject.available { background:var(--available-bg); border-color:var(--available-border); }
 .subject.available .subject-name { color:var(--available-text); }
 .subject.regular   { background:var(--regular-bg);   border-color:var(--regular-border);   box-shadow:0 0 12px rgba(230,184,0,.12); }
@@ -116,99 +104,134 @@ header p { font-family:'Space Mono',monospace; font-size:.7rem; letter-spacing:3
 .subject.approved  { background:var(--approved-bg);  border-color:var(--approved-border);  box-shadow:0 0 12px rgba(46,204,113,.12); }
 .subject.approved  .subject-name { color:var(--approved-text); }
 
-.subject-code {
-  font-family:'Space Mono',monospace; font-size:.56rem; font-weight:700;
-  color:var(--pending-border); line-height:1; pointer-events:none;
-  transition:color .18s; flex-shrink:0;
-}
+.subject-code { font-family:'Space Mono',monospace; font-size:.56rem; font-weight:700; color:var(--pending-border); line-height:1; pointer-events:none; transition:color .18s; flex-shrink:0; }
 .subject.available .subject-code { color:var(--available-border); opacity:.6; }
 .subject.regular   .subject-code { color:var(--regular-border);   opacity:.75; }
 .subject.approved  .subject-code { color:var(--approved-border);  opacity:.75; }
 
-.subject-name {
-  font-size:.75rem; font-weight:600;
-  color:var(--pending-text); line-height:1.5;
-  transition:color .18s; display:block;
-  padding-right:14px; padding-bottom:6px;
-  overflow:visible;
-}
-
+.subject-name { font-size:.75rem; font-weight:600; color:var(--pending-text); line-height:1.5; transition:color .18s; display:block; padding-right:14px; padding-bottom:6px; overflow:visible; }
 .status-pip { position:absolute; top:8px; right:8px; width:6px; height:6px; border-radius:50%; transition:background .18s; }
 .subject.available .status-pip { background:var(--available-border); opacity:.5; }
 .subject.regular   .status-pip { background:var(--regular-border); }
 .subject.approved  .status-pip { background:var(--approved-border); }
 
-.opt-name-input {
-  background:transparent; border:none; outline:none;
-  font-family:'Syne',sans-serif; font-size:.75rem; font-weight:600;
-  color:var(--pending-text); width:100%; cursor:text;
-  padding:0; line-height:1.28; transition:color .18s;
-  padding-right:14px;
-}
+.opt-name-input { background:transparent; border:none; outline:none; font-family:'Syne',sans-serif; font-size:.75rem; font-weight:600; color:var(--pending-text); width:100%; cursor:text; padding:0; line-height:1.28; transition:color .18s; padding-right:14px; }
 .subject.available .opt-name-input { color:var(--available-text); }
 .subject.regular   .opt-name-input { color:var(--regular-text); }
 .subject.approved  .opt-name-input { color:var(--approved-text); }
 .opt-name-input::placeholder { opacity:.35; font-style:italic; }
 .opt-name-input:focus { border-bottom:1px dashed var(--accent); }
 
-/* ── CICLO ───────────────────────────────────────────────────────────── */
-.ciclo-wrapper { border:1px solid var(--border); border-radius:14px; overflow:visible; background:var(--surface); margin-top:10px; transition:background .3s,border-color .3s; }
-.ciclo-header { padding:14px 20px; border-bottom:1px solid var(--border); font-family:'Space Mono',monospace; font-size:.58rem; letter-spacing:3px; text-transform:uppercase; color:var(--accent); transition:color .3s,border-color .3s; }
-.ciclo-body { padding:20px; position:relative; }
-#arrows-svg { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; }
-.ciclo-grid { position:relative; z-index:1; display:grid; grid-template-columns:repeat(5,1fr); grid-auto-rows:auto; gap:80px 12px; padding-bottom:20px; }
+/* ── MAIN FLOW GRID ──────────────────────────────────────────────────────────
+   Layout exacto de la imagen, girado 90°:
+   La imagen original fluye izquierda→derecha en 6 "columnas" (niveles).
+   Girado, esos niveles pasan a ser FILAS (top→bottom).
+   Las "filas" originales de la imagen pasan a ser COLUMNAS del grid.
 
-.optativas-float {
-  margin-top:16px;
-  display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+   Imagen original (de izq a der):
+     Col A (CBC):       AM1, Economía, Der.Inf.I(*), Álgebra, HESG, Adm.Gral, Soc.Org — pero Der.Inf.I no es CBC
+     Col B (2º tramo):  Estadística I, —, Sist.Admin.(274), —, HESA, Teoría Contable, Microeconomía I
+     Col C (Prof.1):    —, —, ITIC, —, —, Gest.Costos(464?→247→464), Macroeconomía
+     ...
+
+   Releyendo la imagen con cuidado:
+   - Fila 1 de imagen: AM1 → Estadística I → (nada más en esa fila)
+                        Cálculo Financiero (276) → Adm.Financiera (279)
+   - Fila 2: Economía (sin flecha a derecha en img)
+   - Fila 3: Der.Inf.I (1603) → Sist.Admin (274) → ITIC (1275) → {Ing.SW, Der.Inf.I, Tec.Comp.SO}
+              luego: Ing.SW → Metod.SI (658) → Gest.Rec.Inf (1799)
+                     Der.Inf.I → Der.Inf.II (1604)
+                     Tec.Comp.SO → Tec.Com (655) → Redes (740) → Act.Prof(1660)
+                     Lógica (661) → {TLA(1652), Sist.Datos(663)}
+                     TLA → Constr.Ap(1654) → Act.Prof(1660)
+                     Sist.Datos → Seg.Inf(662) → Gest.Rec.Inf(1799)
+
+   Reinterpretando la imagen (columnas = niveles izq→der):
+   Nivel 1 (CBC): AM1, Economía, Álgebra, HESG, Adm.Gral, Soc.Org  [+ Der.Inf.I aparece acá como "prereq de 2º tramo" — pero en realidad 1603 prereq es 1275]
+   Nivel 2 (2º tramo + algunos del prof sin prereq propio):
+     Estadística I (248), HESA (249), Sist.Admin (274), Teoría Contable (247), Microeconomía I (250), Cálculo Financiero (276)
+   Nivel 3: ITIC (1275), Lógica (661), Gest.Costos (464 req 247), Macroeco (278), Adm.Financiera (279 req 276)
+   Nivel 4: Ing.SW (1601), Der.Inf.I (1603), Tec.Comp (1653), TLA (1652), Sist.Datos (663)
+   Nivel 5: Metod.SI (658), Der.Inf.II (1604), Tec.Com (655), Constr.Ap (1654), Seg.Inf (662)
+   Nivel 6: Redes (740), Act.Prof (1660), Gest.Rec.Inf (1799)
+
+   Girando 90° → estos NIVELES son FILAS.
+   Las posiciones horizontales en cada nivel → columnas.
+   Usaré un grid de 8 columnas x 6 filas (rows tienen gap vertical).
+   Cada fila = banda horizontal con label a la izquierda.
+*/
+
+/* Wrapper general del plan */
+.plan-wrapper {
+  border:1px solid var(--border); border-radius:14px;
+  background:var(--surface); overflow:visible;
+  transition:background .3s, border-color .3s;
 }
-.optativas-float-label {
-  font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:2px;
-  text-transform:uppercase; color:var(--text-sub); white-space:nowrap;
-  transition:color .3s;
+.plan-header {
+  padding:14px 20px; border-bottom:1px solid var(--border);
+  font-family:'Space Mono',monospace; font-size:.58rem; letter-spacing:3px;
+  text-transform:uppercase; color:var(--accent);
+  transition:color .3s, border-color .3s;
 }
+
+/* El cuerpo del plan: SVG de flechas + grid de cards */
+.plan-body {
+  position:relative; padding:24px 20px 24px 20px;
+}
+#arrows-svg {
+  position:absolute; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0; overflow:visible;
+}
+
+/*
+  Grid de 8 columnas.
+  Cada card ocupa exactamente 1 celda (col, row).
+  gap: 60px vertical (espacio para flechas), 10px horizontal.
+*/
+.plan-grid {
+  position:relative; z-index:1;
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  grid-auto-rows:auto;
+  gap:60px 10px;
+}
+
+/* Banda label a la izquierda — usamos pseudoelement en el wrapper para cada fila?
+   Más sencillo: poner un div "label" en col 0 de cada fila visual.
+   No: usaré elementos <div class="row-label"> posicionados en el grid.
+   Les asigno col:1 y la fila correspondiente. Los cards van del col 2 en adelante.
+   Pero eso complica el SVG.
+   
+   Decisión final: sin labels de fila, todo es un grid puro.
+   Agregaré etiquetas flotantes a la izquierda usando position:absolute.
+*/
+
+/* Optativas */
+.optativas-float { margin-top:16px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.optativas-float-label { font-family:'Space Mono',monospace; font-size:.52rem; letter-spacing:2px; text-transform:uppercase; color:var(--text-sub); white-space:nowrap; transition:color .3s; }
 #optativas-row { display:flex; gap:10px; flex-wrap:wrap; }
 #optativas-row .subject { width:200px; flex-shrink:0; }
 
-/* ── LOADING ──────────────────────────────────────────────────────────── */
+/* LOADING */
 @keyframes ldot { 0%,80%,100%{transform:scale(0.6);opacity:.4} 40%{transform:scale(1);opacity:1} }
-.loader-dot {
-  width:10px; height:10px; border-radius:50%;
-  background:var(--accent);
-  animation:ldot 1.2s infinite ease-in-out both;
-}
+.loader-dot { width:10px; height:10px; border-radius:50%; background:var(--accent); animation:ldot 1.2s infinite ease-in-out both; }
 
-/* ── SAVE INDICATOR ──────────────────────────────────────────────────── */
-.save-indicator {
-  position:fixed; bottom:20px; right:24px; z-index:200;
-  padding:8px 16px; border-radius:10px;
-  font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:1px;
-  text-transform:uppercase; pointer-events:none;
-  transition:opacity .4s;
-}
-.save-indicator.saving { background:var(--surface); border:1px solid var(--border); color:var(--text-sub); }
+/* SAVE */
+.save-indicator { position:fixed; bottom:20px; right:24px; z-index:200; padding:8px 16px; border-radius:10px; font-family:'Space Mono',monospace; font-size:.6rem; letter-spacing:1px; text-transform:uppercase; pointer-events:none; transition:opacity .4s; }
 .save-indicator.saved  { background:var(--approved-bg); border:1px solid var(--approved-border); color:var(--approved-text); }
-.save-indicator.error  { background:var(--regular-bg); border:1px solid var(--regular-border); color:var(--regular-text); }
+.save-indicator.error  { background:var(--regular-bg);  border:1px solid var(--regular-border);  color:var(--regular-text); }
 
-/* ── TOOLTIP ─────────────────────────────────────────────────────────── */
+/* TOOLTIP */
 .tooltip { position:fixed; background:var(--surface); border:1px solid var(--border); border-radius:8px; padding:10px 14px; font-family:'Space Mono',monospace; font-size:.6rem; color:var(--text-main); pointer-events:none; opacity:0; transition:opacity .12s; z-index:9999; max-width:260px; line-height:1.8; }
 .tooltip.visible { opacity:1; }
 
-html, body { min-width: 1200px; overflow-x: auto; }
+html, body { min-width:1300px; overflow-x:auto; }
 </style>
 </head>
 <body>
 
-<div id="loading-screen" style="
-  position:fixed;inset:0;z-index:9999;
-  background:var(--bg);
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:20px;
-  transition:background .3s;
-">
-  <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;letter-spacing:-1px;color:var(--header-color);text-transform:uppercase;">
-    Sistemas <span style="color:var(--accent)">·</span> Plan de Estudios
-  </div>
+<div id="loading-screen" style="position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:background .3s;">
+  <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;letter-spacing:-1px;color:var(--header-color);text-transform:uppercase;">Sistemas <span style="color:var(--accent)">·</span> Plan de Estudios</div>
   <div style="display:flex;gap:6px;align-items:center;">
     <div class="loader-dot" style="animation-delay:0s"></div>
     <div class="loader-dot" style="animation-delay:.15s"></div>
@@ -241,24 +264,11 @@ html, body { min-width: 1200px; overflow-x: auto; }
     <div class="legend-item"><div class="legend-dot approved"></div> Aprobada</div>
   </div>
 
-  <!-- CBC -->
-  <div class="section-row">
-    <div class="section-label">CBC</div>
-    <div class="section-subjects" id="tramo1-subjects"></div>
-  </div>
-
-  <!-- Segundo Tramo -->
-  <div class="section-row">
-    <div class="section-label">Segundo<br>Tramo</div>
-    <div class="section-subjects cols-5" id="tramo2-subjects"></div>
-  </div>
-
-  <!-- Ciclo Profesional -->
-  <div class="ciclo-wrapper">
-    <div class="ciclo-header">Ciclo Profesional</div>
-    <div class="ciclo-body">
+  <div class="plan-wrapper">
+    <div class="plan-header">Licenciatura en Sistemas de Información de las Organizaciones · FCE UBA</div>
+    <div class="plan-body">
       <svg id="arrows-svg"></svg>
-      <div class="ciclo-grid" id="ciclo-grid"></div>
+      <div class="plan-grid" id="plan-grid"></div>
     </div>
   </div>
 
@@ -271,11 +281,8 @@ html, body { min-width: 1200px; overflow-x: auto; }
 <div class="tooltip" id="tooltip"></div>
 
 <script>
-
-// ── LOCAL STORAGE ────────────────────────────────────────────────────────────
+// ── LOCAL STORAGE ─────────────────────────────────────────────────────────────
 const STORAGE_KEY = 'sistemas_progress';
-
-// ── SAVE / LOAD ──────────────────────────────────────────────────────────────
 let saveTimer = null;
 let currentTheme = 'dark';
 
@@ -283,223 +290,199 @@ function showSaved() {
   const el = document.getElementById('save-indicator');
   el.textContent = '✓ Guardado';
   el.className = 'save-indicator saved';
+  el.style.opacity = '1';
   setTimeout(() => { el.style.opacity = '0'; }, 1800);
 }
 function showError() {
   const el = document.getElementById('save-indicator');
   el.textContent = '✗ Error al guardar';
   el.className = 'save-indicator error';
+  el.style.opacity = '1';
   setTimeout(() => { el.style.opacity = '0'; }, 3000);
 }
-
 function saveProgress() {
   const statesPayload = {};
   for (const id in states) statesPayload[id] = states[id];
-  const optNames = { opt1: subjects.opt1.name, opt2: subjects.opt2.name };
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify({
       states: statesPayload,
-      opt_names: optNames,
+      opt_names: { opt1: subjects.opt1.name, opt2: subjects.opt2.name },
       theme: currentTheme
     }));
     showSaved();
-  } catch(e) {
-    console.error('Save error:', e);
-    showError();
-  }
+  } catch(e) { showError(); }
 }
-
-function scheduleSave() {
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(saveProgress, 800);
-}
-
+function scheduleSave() { clearTimeout(saveTimer); saveTimer = setTimeout(saveProgress, 800); }
 function loadProgress() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (!raw) return;
     const row = JSON.parse(raw);
-    if (row.states) {
-      for (const id in row.states) {
-        if (states[id] !== undefined) states[id] = row.states[id];
-      }
-    }
-    if (row.opt_names) {
-      if (row.opt_names.opt1 !== undefined) subjects.opt1.name = row.opt_names.opt1;
-      if (row.opt_names.opt2 !== undefined) subjects.opt2.name = row.opt_names.opt2;
-    }
-    if (row.theme) {
-      currentTheme = row.theme;
-      applyTheme(row.theme);
-    }
-  } catch(e) {
-    console.error('Load error:', e);
-  }
+    if (row.states) for (const id in row.states) { if (states[id] !== undefined) states[id] = row.states[id]; }
+    if (row.opt_names) { if (row.opt_names.opt1 !== undefined) subjects.opt1.name = row.opt_names.opt1; if (row.opt_names.opt2 !== undefined) subjects.opt2.name = row.opt_names.opt2; }
+    if (row.theme) { currentTheme = row.theme; applyTheme(row.theme); }
+  } catch(e) {}
 }
-
 function applyTheme(name) {
   document.body.className = name === 'dark' ? '' : 'theme-' + name;
   document.querySelectorAll('.theme-swatch').forEach(s => s.classList.remove('active'));
-  const swatchMap = { dark: 'swatch-dark', white: 'swatch-white', aqua: 'swatch-aqua', cream: 'swatch-cream' };
-  const el = document.querySelector('.' + (swatchMap[name] || 'swatch-dark'));
+  const el = document.querySelector('.swatch-' + name);
   if (el) el.classList.add('active');
   requestAnimationFrame(drawArrows);
 }
+function setTheme(name) { currentTheme = name; applyTheme(name); scheduleSave(); }
 
-function setTheme(name, el) {
-  currentTheme = name;
-  applyTheme(name);
-  scheduleSave();
-}
-
-// ── DATA ─────────────────────────────────────────────────────────────────────
+// ── DATA ──────────────────────────────────────────────────────────────────────
 //
-// CBC (tramo 1) — 6 materias sin prereqs
-// Segundo Tramo — 5 materias: Estadística I, Hª Ec. Arg., Microeconomía I, Sist. Adm., Cálculo Fin.
-//   prereq: Ciclo General (tramo 1 completo)
-// Ciclo Profesional — resto, con prereqs entre sí
+// Grid de 8 columnas x 6 filas (row 1..6, col 1..8)
+// Correspondencia con la imagen girada 90° (niveles izq→der se convierten en filas top→bottom):
 //
-// Layout Ciclo Profesional (5 cols, filas):
+//  FILA 1 (CBC):
+//    col1=241(AM1), col2=242(Eco), col3=245(Álg), col4=246(HESG), col5=252(AdmGral), col6=254(SocOrg)
 //
-//   col:   0        1        2        3        4
-//   row 0: 1275     661      248      250      247
-//   row 1: 1653     1652     278      274      276
-//   row 2: 655      1654     1603     279      464
-//   row 3: 740      663      1601     1604      —
-//   row 4:  —       662      658       —        —
-//   row 5: 1660      —      1799       —        —
+//  FILA 2 (Segundo Tramo — prereq: CBC aprobado):
+//    col1=248(Estad.I), col2=249(HESA), col3=250(Micro.I), col4=274(Sist.Adm.), col5=247(T.Contable), col6=276(Calc.Fin.)
+//    [Macroeco 278 y Adm.Fin 279 también prereq CBC, van acá]
+//    col7=278(Macroeco), col8=279(AdmFin — pero 279 prereq 276, no CBC → va en fila 3)
 //
-// Notas:
-//   248 = Estadística I (en tramo2, prereq ciclo general)
-//   250 = Microeconomía I (tramo2)
-//   247 = Teoría Contable (tramo2)
-//   274 = Sistemas Administrativos (tramo2)
-//   276 = Cálculo Financiero (tramo2)
-//   249 = Hª Ec. y Social Argentina (tramo2)  — aparece en layout tramo2
-//   278 = Macroeconomía y Política Económica  — prereq: ciclo gral
-//   279 = Administración Financiera           — prereq: 276
-//   464 = Gestión de Costos                   — prereq: 247
-//   1275 = ITIC                               — prereq: ciclo gral
-//   1601 = Ingeniería de Software             — prereq: 1275
-//   1603 = Derecho Informático I              — prereq: 1275
-//   1604 = Derecho Informático II             — prereq: 1603
-//   1652 = Teoría de Lenguajes y Algoritmos   — prereq: 661
-//   1653 = Tecnología Computadores y SO       — prereq: 1275
-//   1654 = Construcción de Aplicaciones       — prereq: 1652
-//   655  = Tecnología de las Comunicaciones   — prereq: 1653
-//   658  = Metodología de los Sistemas de Inf — prereq: 1601
-//   661  = Lógica Simbólica                   — prereq: ciclo gral
-//   662  = Seguridad Informática              — prereq: 663
-//   663  = Sistemas de Datos                  — prereq: 661
-//   740  = Redes Informáticas                 — prereq: 655
-//   1660 = Actuación Profesional              — prereq: 740, 1654
-//   1799 = Gestión de Recursos Informáticos   — prereq: 658, 662
+//  FILA 3 (prereq = alguna del 2º tramo):
+//    col1=1275(ITIC — prereq: CBC), col2=661(Lógica — prereq: CBC)
+//    col3=464(GestCostos — prereq: 247), col4=279(AdmFin — prereq: 276)
+//    [278 Macroeco es solo prereq CBC, va en fila 2]
+//
+//  FILA 4 (prereq = alguna de fila 3):
+//    col1=1653(TecComp — prereq: 1275), col2=1652(TLA — prereq: 661)
+//    col3=1601(IngSW — prereq: 1275), col4=1603(DerInfI — prereq: 1275)
+//    col5=663(SistDatos — prereq: 661)
+//
+//  FILA 5 (prereq = alguna de fila 4):
+//    col1=655(TecCom — prereq: 1653), col2=1654(ConstrAp — prereq: 1652)
+//    col3=658(MetodSI — prereq: 1601), col4=1604(DerInfII — prereq: 1603)
+//    col5=662(SegInf — prereq: 663)
+//
+//  FILA 6 (prereq = alguna de fila 5):
+//    col1=740(Redes — prereq: 655), col2=1660(ActProf — prereq: 740,1654)
+//    col3=1799(GestRec — prereq: 658,662)
+//
+// Noto que 1660 prereq es 740 Y 1654 → en la imagen salen de fila diferente.
+// Los pongo a todos en fila 6 y dibujo las flechas correspondientes.
+//
+// AJUSTE: en la imagen la secuencia es:
+//   AM1 → Estadística I  (flechas verticales dentro de misma columna)
+//   Cálculo Financiero → Adm.Financiera
+//   Lógica → TLA → ConstrAp → ActProf
+//   Lógica → SistDatos → SegInf → GestRec
+//   ITIC → IngSW → MetodSI → GestRec
+//   ITIC → DerInfI → DerInfII
+//   ITIC → TecComp → TecCom → Redes → ActProf
+//   247(TContable) → 464(GCostos) [en la imagen aparecen como Adm.Gral → TContable → GCostos]
+//
+// Corrección: en la imagen Adm.Gral → Teoría Contable → Gestión de Costos
+// Eso sugiere que TContable prereq es Adm.Gral (no el CBC).
+// Pero el plan oficial dice prereq = Ciclo General Aprobado para todo el 2º tramo.
+// Seguimos el plan oficial.
 
 const subjects = {
-  // ── CBC ────────────────────────────────────────────────────────────────────
-  241: { name:'Análisis Matemático I',         tramo:1, prereqsApproved:[] },
-  242: { name:'Economía',                       tramo:1, prereqsApproved:[] },
-  245: { name:'Álgebra',                        tramo:1, prereqsApproved:[] },
-  246: { name:'Historia Ec. y Social General',  tramo:1, prereqsApproved:[] },
-  252: { name:'Administración General',         tramo:1, prereqsApproved:[] },
-  254: { name:'Sociología de las Org.',         tramo:1, prereqsApproved:[] },
+  // FILA 1 — CBC (sin prereqs)
+  241:  { name:'Análisis Matemático I',             tramo:1, col:1, row:1, prereqsApproved:[] },
+  242:  { name:'Economía',                          tramo:1, col:2, row:1, prereqsApproved:[] },
+  245:  { name:'Álgebra',                           tramo:1, col:3, row:1, prereqsApproved:[] },
+  246:  { name:'Hist. Económica y Social Gral.',    tramo:1, col:4, row:1, prereqsApproved:[] },
+  252:  { name:'Administración General',            tramo:1, col:5, row:1, prereqsApproved:[] },
+  254:  { name:'Sociología de las Org.',            tramo:1, col:6, row:1, prereqsApproved:[] },
 
-  // ── Segundo Tramo ──────────────────────────────────────────────────────────
-  248: { name:'Estadística I',                  tramo:2, prereqsApproved:[] },
-  249: { name:'Historia Ec. y Social Argentina',tramo:2, prereqsApproved:[] },
-  250: { name:'Microeconomía I',                tramo:2, prereqsApproved:[] },
-  274: { name:'Sistemas Administrativos',       tramo:2, prereqsApproved:[] },
-  276: { name:'Cálculo Financiero',             tramo:2, prereqsApproved:[] },
+  // FILA 2 — Segundo Tramo (prereq: CBC completo)
+  248:  { name:'Estadística I',                     tramo:2, col:1, row:2, prereqsApproved:[] },
+  249:  { name:'Hist. Ec. y Social Argentina',      tramo:2, col:2, row:2, prereqsApproved:[] },
+  250:  { name:'Microeconomía I',                   tramo:2, col:3, row:2, prereqsApproved:[] },
+  274:  { name:'Sistemas Administrativos',          tramo:2, col:4, row:2, prereqsApproved:[] },
+  247:  { name:'Teoría Contable',                   tramo:2, col:5, row:2, prereqsApproved:[] },
+  276:  { name:'Cálculo Financiero',                tramo:2, col:6, row:2, prereqsApproved:[] },
+  278:  { name:'Macroeconomía y Pol. Económica',    tramo:2, col:7, row:2, prereqsApproved:[] },
 
-  // ── Ciclo Profesional ──────────────────────────────────────────────────────
-  // row 0
-  1275: { name:'ITIC',                          tramo:3, col:0, row:0, prereqsApproved:[] },
-  661:  { name:'Lógica Simbólica y Fund. Decisión', tramo:3, col:1, row:0, prereqsApproved:[] },
-  278:  { name:'Macroeconomía y Pol. Económica', tramo:3, col:2, row:0, prereqsApproved:[] },
-  247:  { name:'Teoría Contable',               tramo:3, col:3, row:0, prereqsApproved:[] },
-  279:  { name:'Administración Financiera',     tramo:3, col:4, row:0, prereqsApproved:[276] },
+  // FILA 3 — Ciclo Profesional - nivel 1
+  1275: { name:'ITIC',                              tramo:3, col:4, row:3, prereqsApproved:[] },
+  661:  { name:'Lógica Simbólica y Fund. Decisión', tramo:3, col:2, row:3, prereqsApproved:[] },
+  464:  { name:'Gestión de Costos',                 tramo:3, col:6, row:3, prereqsApproved:[247] },
+  279:  { name:'Administración Financiera',         tramo:3, col:7, row:3, prereqsApproved:[276] },
 
-  // row 1
-  1653: { name:'Tecnología de Computadores y SO', tramo:3, col:0, row:1, prereqsApproved:[1275] },
-  1652: { name:'Teoría de Lenguajes y Algoritmos', tramo:3, col:1, row:1, prereqsApproved:[661] },
-  1603: { name:'Derecho Informático I',         tramo:3, col:2, row:1, prereqsApproved:[1275] },
-  464:  { name:'Gestión de Costos',             tramo:3, col:3, row:1, prereqsApproved:[247] },
+  // FILA 4 — Ciclo Profesional - nivel 2
+  1652: { name:'Teoría de Lenguajes y Algoritmos',  tramo:3, col:1, row:4, prereqsApproved:[661] },
+  663:  { name:'Sistemas de Datos',                 tramo:3, col:2, row:4, prereqsApproved:[661] },
+  1601: { name:'Ingeniería de Software',            tramo:3, col:3, row:4, prereqsApproved:[1275] },
+  1603: { name:'Derecho Informático I',             tramo:3, col:4, row:4, prereqsApproved:[1275] },
+  1653: { name:'Tecnología de Computadores y SO',   tramo:3, col:5, row:4, prereqsApproved:[1275] },
 
-  // row 2
-  655:  { name:'Tecnología de las Comunicaciones', tramo:3, col:0, row:2, prereqsApproved:[1653] },
-  1654: { name:'Construcción de Aplicaciones Informáticas', tramo:3, col:1, row:2, prereqsApproved:[1652] },
-  1601: { name:'Ingeniería de Software',        tramo:3, col:2, row:2, prereqsApproved:[1275] },
-  1604: { name:'Derecho Informático II',        tramo:3, col:3, row:2, prereqsApproved:[1603] },
+  // FILA 5 — Ciclo Profesional - nivel 3
+  1654: { name:'Construcción de Aplicaciones Informáticas', tramo:3, col:1, row:5, prereqsApproved:[1652] },
+  662:  { name:'Seguridad Informática y Princ. de Auditoría', tramo:3, col:2, row:5, prereqsApproved:[663] },
+  658:  { name:'Metodología de los Sistemas de Información', tramo:3, col:3, row:5, prereqsApproved:[1601] },
+  1604: { name:'Derecho Informático II',            tramo:3, col:4, row:5, prereqsApproved:[1603] },
+  655:  { name:'Tecnología de Comunicaciones',      tramo:3, col:5, row:5, prereqsApproved:[1653] },
 
-  // row 3
-  740:  { name:'Redes Informáticas',            tramo:3, col:0, row:3, prereqsApproved:[655] },
-  663:  { name:'Sistemas de Datos',             tramo:3, col:1, row:3, prereqsApproved:[661] },
-  658:  { name:'Metodología de los Sistemas de Información', tramo:3, col:2, row:3, prereqsApproved:[1601] },
-
-  // row 4
-  662:  { name:'Seguridad Informática y Princ. de Auditoría', tramo:3, col:1, row:4, prereqsApproved:[663] },
-
-  // row 5
-  1660: { name:'Actuación Profesional del Lic. en Sistemas', tramo:3, col:0, row:5, prereqsApproved:[740, 1654] },
-  1799: { name:'Gestión de Recursos Informáticos', tramo:3, col:2, row:5, prereqsApproved:[658, 662] },
+  // FILA 6 — Ciclo Profesional - nivel 4
+  1660: { name:'Actuación Profesional del Lic. en Sistemas', tramo:3, col:2, row:6, prereqsApproved:[740, 1654] },
+  1799: { name:'Gestión de Recursos Informáticos',  tramo:3, col:3, row:6, prereqsApproved:[658, 662] },
+  740:  { name:'Redes Informáticas',                tramo:3, col:5, row:6, prereqsApproved:[655] },
 
   // Optativas
-  opt1: { name:'', tramo:3, prereqsApproved:[], optional:true, editable:true, label:'Optativa 1' },
-  opt2: { name:'', tramo:3, prereqsApproved:[], optional:true, editable:true, label:'Optativa 2' },
+  opt1: { name:'', tramo:4, prereqsApproved:[], optional:true, editable:true, label:'Optativa 1' },
+  opt2: { name:'', tramo:4, prereqsApproved:[], optional:true, editable:true, label:'Optativa 2' },
 };
 
-// arrowDefs — ORDER controls spread (first = leftmost exit / leftmost entry)
+// arrowDefs — solo materias del ciclo profesional (tramo 3)
 const arrowDefs = [
-  // ITIC → descendientes
-  [1275, 1653],
-  [1275, 1601],
-  [1275, 1603],
-  // 661 → descendientes
+  // Segundo Tramo → Ciclo Prof. nivel 1
+  [247, 464],
+  [276, 279],
+  // 661 → nivel 2
   [661, 1652],
   [661, 663],
-  // 276 → 279
-  [276, 279],
-  // 247 → 464
-  [247, 464],
-  // 1653 → 655
-  [1653, 655],
-  // 1652 → 1654
+  // 1275 → nivel 2
+  [1275, 1601],
+  [1275, 1603],
+  [1275, 1653],
+  // nivel 2 → nivel 3
   [1652, 1654],
-  // 1603 → 1604
-  [1603, 1604],
-  // 1601 → 658
+  [663,  662],
   [1601, 658],
-  // 655 → 740
-  [655, 740],
-  // 663 → 662
-  [663, 662],
-  // 740 → 1660
-  [740, 1660],
-  // 1654 → 1660
+  [1603, 1604],
+  [1653, 655],
+  // nivel 3 → nivel 4
+  [655,  740],
   [1654, 1660],
-  // 658 → 1799
-  [658, 1799],
-  // 662 → 1799
-  [662, 1799],
+  [740,  1660],
+  [658,  1799],
+  [662,  1799],
 ];
 
 const states = {};
 
 function initStates() {
   for (const id in subjects) states[id] = 'pending';
-  // Optativas arrancan disponibles
   states['opt1'] = 'available';
   states['opt2'] = 'available';
   recalc();
+}
+
+function cbcCompleto() {
+  return [241,242,245,246,252,254].every(id => states[id] === 'approved');
 }
 
 function allApproved(ids) { return ids.every(id => states[id] === 'approved'); }
 
 function prereqsMet(id) {
   const s = subjects[id];
-  if (s.optional || s.tramo <= 2) return true;
-  if (!s.prereqsApproved.length) return true;
-  return allApproved(s.prereqsApproved);
+  if (s.optional) return true;
+  if (s.tramo === 1) return true;
+  // Tramo 2: requiere CBC completo
+  if (s.tramo === 2) return cbcCompleto();
+  // Tramo 3: prereqs específicos; ITIC, 661, 278 requieren CBC
+  if (s.tramo === 3) {
+    if (!s.prereqsApproved.length) return cbcCompleto(); // ITIC, 661, 278 sin prereq específico
+    return allApproved(s.prereqsApproved);
+  }
+  return true;
 }
 
 function recalc() {
@@ -525,7 +508,7 @@ function makeCard(id) {
   const isOpt = subj.editable;
 
   const div = document.createElement('div');
-  div.className = `subject ${state}${state !== 'pending' ? ' clickable' : ''}${subj.optional ? ' optativa' : ''}`;
+  div.className = `subject ${state}${state !== 'pending' ? ' clickable' : ''}`;
   div.id = `card-${id}`;
 
   let nameEl;
@@ -539,7 +522,7 @@ function makeCard(id) {
     nameEl.addEventListener('click', e => e.stopPropagation());
   } else {
     nameEl = document.createElement('span');
-    nameEl.className = 'subject-name' + (subj.name.length > 26 ? ' long' : '');
+    nameEl.className = 'subject-name';
     nameEl.textContent = subj.name;
   }
 
@@ -558,11 +541,17 @@ function makeCard(id) {
 
   if (!isOpt) {
     div.addEventListener('mouseenter', e => {
-      if (state === 'pending' && subj.prereqsApproved?.length) {
-        const missing = subj.prereqsApproved
-          .filter(p => states[p] !== 'approved')
-          .map(p => `${p} – ${subjects[p]?.name || p}`).join('\n');
-        if (missing) showTip(e, `Falta aprobar:\n${missing}`);
+      if (state === 'pending') {
+        // Armar texto de prereqs faltantes
+        let missing = [];
+        if (subj.tramo === 2) {
+          missing = [241,242,245,246,252,254].filter(p => states[p] !== 'approved').map(p => `${p} – ${subjects[p]?.name || p}`);
+        } else if (subj.tramo === 3 && !subj.prereqsApproved.length) {
+          missing = [241,242,245,246,252,254].filter(p => states[p] !== 'approved').map(p => `${p} – ${subjects[p]?.name || p}`);
+        } else if (subj.prereqsApproved?.length) {
+          missing = subj.prereqsApproved.filter(p => states[p] !== 'approved').map(p => `${p} – ${subjects[p]?.name || p}`);
+        }
+        if (missing.length) showTip(e, `Falta aprobar:\n${missing.join('\n')}`);
       } else if (state === 'available') {
         showTip(e, 'Click → Regular · Click 2× → Aprobada');
       }
@@ -575,33 +564,29 @@ function makeCard(id) {
 }
 
 // ── RENDER ───────────────────────────────────────────────────────────────────
-function renderTramos() {
-  const t1 = document.getElementById('tramo1-subjects');
-  const t2 = document.getElementById('tramo2-subjects');
-  t1.innerHTML = ''; t2.innerHTML = '';
-  [241,242,245,246,252,254].forEach(id => t1.appendChild(makeCard(id)));
-  [248,249,250,274,276].forEach(id => t2.appendChild(makeCard(id)));
-}
-
-function renderCiclo() {
-  const grid = document.getElementById('ciclo-grid');
+function renderGrid() {
+  const grid = document.getElementById('plan-grid');
   grid.innerHTML = '';
 
+  // Renderizar todas las materias con col/row
   for (const id in subjects) {
     const s = subjects[id];
-    if (s.tramo !== 3 || s.optional) continue;
+    if (s.optional || s.col === undefined) continue;
     const card = makeCard(id);
-    card.style.gridColumn = s.col + 1;
-    card.style.gridRow    = s.row + 1;
+    card.style.gridColumn = s.col;
+    card.style.gridRow    = s.row;
     grid.appendChild(card);
   }
 
+  // Optativas
   const optRow = document.getElementById('optativas-row');
   optRow.innerHTML = '';
   ['opt1','opt2'].forEach(id => optRow.appendChild(makeCard(id)));
 
   requestAnimationFrame(() => requestAnimationFrame(drawArrows));
 }
+
+function renderAll() { renderStats(); renderGrid(); }
 
 // ── ARROWS ───────────────────────────────────────────────────────────────────
 function drawArrows() {
@@ -618,18 +603,12 @@ function drawArrows() {
   const defs = document.createElementNS(ns,'defs');
   const mkM = (id, col) => {
     const m = document.createElementNS(ns,'marker');
-    m.setAttribute('id', id);
-    m.setAttribute('markerWidth','10');
-    m.setAttribute('markerHeight','8');
-    m.setAttribute('refX','9');
-    m.setAttribute('refY','4');
-    m.setAttribute('orient','auto');
+    m.setAttribute('id', id); m.setAttribute('markerWidth','10'); m.setAttribute('markerHeight','8');
+    m.setAttribute('refX','9'); m.setAttribute('refY','4'); m.setAttribute('orient','auto');
     m.setAttribute('markerUnits','userSpaceOnUse');
     const pg = document.createElementNS(ns,'polygon');
-    pg.setAttribute('points','0,0.5 9,4 0,7.5 2,4');
-    pg.setAttribute('fill', col);
-    m.appendChild(pg);
-    return m;
+    pg.setAttribute('points','0,0.5 9,4 0,7.5 2,4'); pg.setAttribute('fill', col);
+    m.appendChild(pg); return m;
   };
   defs.appendChild(mkM('ad', cPend));
   defs.appendChild(mkM('ao', cAppr));
@@ -641,12 +620,11 @@ function drawArrows() {
              cx:r.left-ox+r.width/2, cy:r.top-oy+r.height/2, w:r.width, h:r.height };
   }
 
+  // Calcular secuencias de salida/entrada para spreading
   const exitSeq={}, entSeq={};
   arrowDefs.forEach(([f,t]) => {
-    exitSeq[f] = exitSeq[f]||[];
-    entSeq[t]  = entSeq[t] ||[];
-    exitSeq[f].push(t);
-    entSeq[t].push(f);
+    exitSeq[f] = exitSeq[f]||[]; exitSeq[f].push(t);
+    entSeq[t]  = entSeq[t] ||[]; entSeq[t].push(f);
   });
 
   function exitX(f, t, i, n) {
@@ -676,23 +654,19 @@ function drawArrows() {
 
     const eArr = exitSeq[fId]||[], aArr = entSeq[tId]||[];
     const ei = eArr.indexOf(tId), ai = aArr.indexOf(fId);
-    const eN = eArr.length, aN = aArr.length;
 
-    const x1 = exitX(f, t, ei, eN);
+    const x1 = exitX(f, t, ei, eArr.length);
     const y1 = f.b;
-    const x2 = entryX(f, t, ai, aN);
+    const x2 = entryX(f, t, ai, aArr.length);
     const y2 = t.t + MLEN;
 
-    const dy = y2 - y1;
-    const dx = x2 - x1;
+    const dy = y2 - y1, dx = x2 - x1;
     const tension = Math.max(dy * 0.15, 12);
-    const c1x = x1 + dx*0.1;  const c1y = y1 + tension;
-    const c2x = x2 - dx*0.1;  const c2y = y2 - tension;
+    const c1x = x1 + dx*0.1, c1y = y1 + tension;
+    const c2x = x2 - dx*0.1, c2y = y2 - tension;
 
     const path = document.createElementNS(ns,'path');
-    path.setAttribute('d',
-      `M${x1.toFixed(1)},${y1.toFixed(1)} C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`
-    );
+    path.setAttribute('d', `M${x1.toFixed(1)},${y1.toFixed(1)} C${c1x.toFixed(1)},${c1y.toFixed(1)} ${c2x.toFixed(1)},${c2y.toFixed(1)} ${x2.toFixed(1)},${y2.toFixed(1)}`);
     path.setAttribute('stroke', stroke);
     path.setAttribute('stroke-width','1.5');
     path.setAttribute('fill','none');
@@ -702,7 +676,7 @@ function drawArrows() {
   });
 }
 
-// ── STATS ────────────────────────────────────────────────────────────────────
+// ── STATS ─────────────────────────────────────────────────────────────────────
 function renderStats() {
   const div = document.getElementById('stats');
   const allIds = Object.keys(subjects);
@@ -710,10 +684,10 @@ function renderStats() {
   const c = {approved:0,regular:0,available:0,pending:0};
   allIds.forEach(id => {
     const st = states[id];
-    if      (st === 'approved')  c.approved++;
-    else if (st === 'regular')   c.regular++;
-    else if (st === 'available') c.available++;
-    else                         c.pending++;
+    if      (st==='approved')  c.approved++;
+    else if (st==='regular')   c.regular++;
+    else if (st==='available') c.available++;
+    else                       c.pending++;
   });
   const pct = total > 0 ? Math.round(c.approved / total * 100) : 0;
   div.innerHTML = `
@@ -725,9 +699,7 @@ function renderStats() {
     <div class="stat s-total"><div class="stat-number">${total}</div><div class="stat-label">Total materias</div></div>`;
 }
 
-function renderAll() { renderStats(); renderTramos(); renderCiclo(); }
-
-// ── TOOLTIP ──────────────────────────────────────────────────────────────────
+// ── TOOLTIP ───────────────────────────────────────────────────────────────────
 const tip = document.getElementById('tooltip');
 let tv = false;
 function showTip(e,t){tip.innerHTML=t.replace(/\n/g,'<br>');tip.classList.add('visible');tv=true;moveTip(e);}
