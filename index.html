@@ -210,7 +210,7 @@ html, body { min-width:1300px; overflow-x:auto; }
   <!-- Segundo Tramo — 7 materias -->
   <div class="section-row">
     <div class="section-label">Segundo<br>Tramo</div>
-    <div class="section-subjects cols-5" id="tramo2-subjects"></div>
+    <div class="section-subjects cols-6" id="tramo2-subjects"></div>
   </div>
 
   <!-- Ciclo Profesional — grid girado 90° respecto a imagen -->
@@ -335,41 +335,46 @@ const subjects = {
   242: { name:'Economía',                          tramo:1, prereqsApproved:[] },
   245: { name:'Álgebra',                           tramo:1, prereqsApproved:[] },
   246: { name:'HESG',    tramo:1, prereqsApproved:[] },
-  252: { name:'Administración General',            tramo:1, prereqsApproved:[] },
+  252: { name:'Administración Gral.',             tramo:1, prereqsApproved:[] },
   254: { name:'Sociología de las Org.',            tramo:1, prereqsApproved:[] },
 
   // Segundo Tramo (tramo 2, prereq = CBC completo)
   248: { name:'Estadística I',                     tramo:2, prereqsApproved:[] },
-  247: { name:'Teoría Contable',                   tramo:2, prereqsApproved:[] },
-  249: { name:'HESA',      tramo:2, prereqsApproved:[] },
-  1275:{ name:'ITIC',                              tramo:2, prereqsApproved:[] },
+  274: { name:'Sistemas Administrativos',          tramo:2, prereqsApproved:[] },
   250: { name:'Microeconomía I',                   tramo:2, prereqsApproved:[] },
-  278: { name:'Sistemas Administrativos',  tramo:3, col:2, row:1, prereqsApproved:[] },
+  247: { name:'Teoría Contable',                   tramo:2, prereqsApproved:[] },
+  249: { name:'HESA',                              tramo:2, prereqsApproved:[] },
+  1275:{ name:'ITIC',                              tramo:2, prereqsApproved:[] },
 
   // Ciclo Profesional (tramo 3) — col y row para el grid
-  // FILA 1
-  661:  { name:'Lógica y Teoría de la Decisión',    tramo:3, col:1, row:1, prereqsApproved:[] },
+  // FILA 0 (row:1)
+  464:  { name:'Gestión de Costos',                 tramo:3, col:1, row:1, prereqsApproved:[247] },
+  278:  { name:'Macroeconomía y Pol. Económica',    tramo:3, col:2, row:1, prereqsApproved:[] },
+  276:  { name:'Cálculo Financiero',                tramo:3, col:3, row:1, prereqsApproved:[] },
 
-  // FILA 2
-  1652: { name:'TYLA',  tramo:3, col:1, row:2, prereqsApproved:[661] },
-  663:  { name:'Sistemas de Datos',                 tramo:3, col:2, row:2, prereqsApproved:[661] },
-  1601: { name:'Ingeniería de Software',            tramo:3, col:3, row:1, prereqsApproved:[1275] },
-  1603: { name:'Derecho Informático I',             tramo:3, col:4, row:1, prereqsApproved:[1275] },
-  1653: { name:'TICSO',                              tramo:3, col:5, row:1, prereqsApproved:[1275] },
+  // FILA 1 (row:2)
+  661:  { name:'Lógica y Teoría de la Decisión',    tramo:3, col:1, row:2, prereqsApproved:[] },
+  1601: { name:'Ingeniería de Software',            tramo:3, col:3, row:2, prereqsApproved:[1275] },
+  1603: { name:'Derecho Informático I',             tramo:3, col:4, row:2, prereqsApproved:[1275] },
+  1653: { name:'TICSO',                             tramo:3, col:5, row:2, prereqsApproved:[1275] },
 
-  // FILA 3
-  1654: { name:'CAI', tramo:3, col:1, row:3, prereqsApproved:[1652] },
-  662:  { name:'Seg. Inf. y Princ. de Auditoría', tramo:3, col:2, row:3, prereqsApproved:[663] },
-  658:  { name:'MetSI', tramo:3, col:3, row:3, prereqsApproved:[1601] },
-  1604: { name:'Derecho Informático II',            tramo:3, col:4, row:2, prereqsApproved:[1603] },
-  655:  { name:'Tecnología de Comunicaciones',      tramo:3, col:5, row:2, prereqsApproved:[1653] },
+  // FILA 2 (row:3)
+  1652: { name:'TYLA',                              tramo:3, col:1, row:3, prereqsApproved:[661] },
+  663:  { name:'Sistemas de Datos',                 tramo:3, col:2, row:3, prereqsApproved:[661] },
+  1604: { name:'Derecho Informático II',            tramo:3, col:4, row:3, prereqsApproved:[1603] },
+  655:  { name:'Tecnología de Comunicaciones',      tramo:3, col:5, row:3, prereqsApproved:[1653] },
 
-  // FILA 4
-  1799: { name:'Gestión de RR Informáticos',      tramo:3, col:3, row:4, prereqsApproved:[658, 662] },
-  740:  { name:'Redes Informáticas',                tramo:3, col:5, row:3, prereqsApproved:[655] },
+  // FILA 3 (row:4)
+  1654: { name:'CAI',                               tramo:3, col:1, row:4, prereqsApproved:[1652] },
+  662:  { name:'Seg. Inf. y Princ. de Auditoría',  tramo:3, col:2, row:4, prereqsApproved:[663] },
+  658:  { name:'MetSI',                             tramo:3, col:3, row:4, prereqsApproved:[1601] },
+  740:  { name:'Redes Informáticas',                tramo:3, col:5, row:4, prereqsApproved:[655] },
 
-  // FILA 5
-  1660: { name:'Actuación Profesional', tramo:3, col:3, row:5, prereqsApproved:[740, 1654] },
+  // FILA 4 (row:5)
+  1799: { name:'Gestión de RR Informáticos',        tramo:3, col:3, row:5, prereqsApproved:[658, 662] },
+
+  // FILA 5 (row:6)
+  1660: { name:'Actuación Profesional',             tramo:3, col:3, row:6, prereqsApproved:[740, 1654] },
 
   // Optativas
   opt1: { name:'', tramo:4, prereqsApproved:[], optional:true, editable:true, label:'Optativa 1' },
@@ -495,7 +500,7 @@ function renderTramos() {
   const t2 = document.getElementById('tramo2-subjects');
   t1.innerHTML = ''; t2.innerHTML = '';
   [241,242,245,246,252,254].forEach(id => t1.appendChild(makeCard(id)));
-  [248,247,249,1275,250].forEach(id => t2.appendChild(makeCard(id)));
+  [248,274,250,247,249,1275].forEach(id => t2.appendChild(makeCard(id)));
 }
 
 function renderCiclo() {
