@@ -245,18 +245,30 @@ header p { font-family:'Space Mono',monospace; font-size:.7rem; letter-spacing:3
   background:var(--available-bg); border:1.5px solid var(--available-border); color:var(--available-text);
   border-radius:8px; padding:6px 10px; font-size:.68rem; font-weight:600; line-height:1.35;
   cursor:grab; user-select:none; display:flex; align-items:center; gap:7px;
+  touch-action:none;
 }
 .p-card:active { cursor:grabbing; }
-.p-card.dragging { opacity:.35; }
+.p-card.dragging { opacity:.3; }
+.p-card.drag-ghost {
+  position:fixed; z-index:700; pointer-events:none; margin:0;
+  transform:translate(-14px,-50%); opacity:.95; box-shadow:0 8px 24px rgba(0,0,0,.4);
+}
 .p-card .p-code { font-family:'Space Mono',monospace; font-size:.52rem; opacity:.55; flex-shrink:0; }
-.planner-periods { display:grid; grid-template-columns:repeat(auto-fill,minmax(215px,1fr)); gap:12px; }
+.planner-periods { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:8px; }
 .p-period {
   background:var(--surface); border:1.5px solid var(--border); border-radius:12px;
-  padding:10px; display:flex; flex-direction:column; gap:7px; min-height:130px;
+  padding:8px; display:flex; flex-direction:column; gap:6px; min-height:74px;
   transition:border-color .15s, background .15s;
 }
-.p-period.intensivo { background:transparent; border-style:dashed; min-height:96px; }
-.p-period.dragover, .planner-pool.dragover { border-color:var(--accent); }
+.p-period.intensivo { background:transparent; border-style:dashed; min-height:58px; }
+.p-period.dragover, .planner-pool.dragover { border-color:var(--accent); background:rgba(255,107,53,.06); }
+.p-add {
+  background:transparent; border:1.5px dashed var(--border); border-radius:12px;
+  color:var(--text-sub); cursor:pointer; min-height:58px;
+  font-family:'Space Mono',monospace; font-size:.58rem; letter-spacing:1px; text-transform:uppercase;
+  transition:border-color .15s, color .15s;
+}
+.p-add:hover { border-color:var(--accent); color:var(--accent); }
 .p-period-title {
   display:flex; justify-content:space-between; gap:6px;
   font-family:'Space Mono',monospace; font-size:.56rem; letter-spacing:1.5px;
@@ -1026,6 +1038,7 @@ function autoArrange(maxPer = 3, useIntensivos = false) {
     pi++;
   }
   if (unplaced.length) plannerToast(`No pude ubicar: ${unplaced.map(subjName).join(', ')}`);
+  trimTrailingPeriods();
   renderPlanner(); scheduleSave();
 }
 
@@ -1051,40 +1064,86 @@ function clearPlan() {
   renderPlanner(); scheduleSave();
 }
 
+// ── Drag por Pointer Events (funciona con mouse Y pantalla táctil).
+// Reemplaza al drag-and-drop nativo de HTML5, que no anda en celulares/tablets.
+// La zona bajo el puntero se detecta con data-period-key en cada período y el
+// id del pool; el fantasma tiene pointer-events:none para no taparla.
+function zoneUnderPointer(x, y) {
+  const under = document.elementFromPoint(x, y);
+  if (!under) return undefined;                              // fuera → no hacer nada
+  const per = under.closest('[data-period-key]');
+  if (per) return per.getAttribute('data-period-key');      // período
+  if (under.closest('#planner-pool')) return null;          // pool → devolver al listado
+  return undefined;
+}
+
+function beginCardDrag(id, el, ev) {
+  if (ev.pointerType === 'mouse' && ev.button !== 0) return;
+  const startX = ev.clientX, startY = ev.clientY;
+  let ghost = null, moved = false, hot = null;
+
+  const highlight = z => {
+    if (hot && hot !== z) hot.classList.remove('dragover');
+    if (z) z.classList.add('dragover');
+    hot = z;
+  };
+  const onMove = e => {
+    if (!moved && Math.hypot(e.clientX - startX, e.clientY - startY) < 6) return;
+    if (!moved) {
+      moved = true;
+      ghost = el.cloneNode(true);
+      ghost.classList.add('drag-ghost');
+      ghost.style.width = el.offsetWidth + 'px';
+      document.body.appendChild(ghost);
+      el.classList.add('dragging');
+    }
+    e.preventDefault();
+    ghost.style.left = e.clientX + 'px';
+    ghost.style.top = e.clientY + 'px';
+    const under = document.elementFromPoint(e.clientX, e.clientY);
+    highlight(under && (under.closest('[data-period-key]') || under.closest('#planner-pool')));
+  };
+  const onUp = e => {
+    window.removeEventListener('pointermove', onMove);
+    window.removeEventListener('pointerup', onUp);
+    window.removeEventListener('pointercancel', onUp);
+    highlight(null);
+    el.classList.remove('dragging');
+    if (ghost) ghost.remove();
+    if (moved) {
+      const zone = zoneUnderPointer(e.clientX, e.clientY);
+      if (zone === null) unplace(id);
+      else if (zone !== undefined) tryPlace(id, zone);
+    }
+  };
+  window.addEventListener('pointermove', onMove);
+  window.addEventListener('pointerup', onUp);
+  window.addEventListener('pointercancel', onUp);
+}
+
 // ── Render del modal
 function makePlannerCard(id) {
   const d = document.createElement('div');
   d.className = 'p-card';
-  d.draggable = true;
   const code = document.createElement('span');
   code.className = 'p-code';
   code.textContent = subjects[id].editable ? (subjects[id].label || 'Opt') : id;
   const name = document.createElement('span');
   name.textContent = subjects[id].name || (subjects[id].editable ? 'Sin nombre aún' : String(id));
   d.appendChild(code); d.appendChild(name);
-  d.addEventListener('dragstart', e => {
-    e.dataTransfer.setData('text/plain', String(id));
-    e.dataTransfer.effectAllowed = 'move';
-    d.classList.add('dragging');
-  });
-  d.addEventListener('dragend', () => d.classList.remove('dragging'));
+  d.addEventListener('pointerdown', e => beginCardDrag(id, d, e));
   if (plan[id] !== undefined) {
-    d.title = 'Doble click para devolver al listado';
+    d.title = 'Arrastrala al listado (o doble click) para devolverla';
     d.addEventListener('dblclick', () => unplace(id));
   }
   return d;
 }
 
-function makeDropzone(el, key) { // key = null → pool (quitar del plan)
-  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('dragover'); });
-  el.addEventListener('dragleave', () => el.classList.remove('dragover'));
-  el.addEventListener('drop', e => {
-    e.preventDefault();
-    el.classList.remove('dragover');
-    const id = e.dataTransfer.getData('text/plain');
-    if (!id || !subjects[id]) return;
-    if (key === null) unplace(id); else tryPlace(id, key);
-  });
+// Agrega un cuatrimestre más al final (para planes largos armados a mano).
+function addPeriod() {
+  const c = plannerPeriods.filter(p => !p.intensivo).length;
+  plannerPeriods = buildPeriods(c + 1);
+  renderPlanner();
 }
 
 function renderPlanner() {
@@ -1099,15 +1158,37 @@ function renderPlanner() {
   plannerPeriods.forEach(per => {
     const box = document.createElement('div');
     box.className = 'p-period' + (per.intensivo ? ' intensivo' : '');
+    box.dataset.periodKey = per.key;
     const ids = Object.keys(plan).filter(id => plan[id] === per.key);
     const title = document.createElement('div');
     title.className = 'p-period-title';
     title.innerHTML = `<span>${per.label}</span><span class="p-cap">${ids.length}/${per.cap}</span>`;
     box.appendChild(title);
     ids.forEach(id => box.appendChild(makePlannerCard(id)));
-    makeDropzone(box, per.key);
     cont.appendChild(box);
   });
+  const add = document.createElement('button');
+  add.className = 'p-add';
+  add.textContent = '＋ Cuatrimestre';
+  add.title = 'Agregar un cuatrimestre más al final';
+  add.addEventListener('click', addPeriod);
+  cont.appendChild(add);
+}
+
+// Recorta los períodos vacíos sobrantes al final, dejando lugar suficiente para
+// las materias que siguen en el listado (más un colchón mínimo). Evita mostrar
+// una pila enorme de cuatrimestres vacíos.
+function trimTrailingPeriods() {
+  let lastUsed = -1;
+  const usados = new Set(Object.values(plan));
+  plannerPeriods.forEach((p, i) => { if (usados.has(p.key)) lastUsed = i; });
+  const restantes = remainingIds().filter(id => plan[id] === undefined).length;
+  const buffer = Math.max(2, Math.ceil(restantes / CAP_CUATRI));
+  let vac = 0, cut = plannerPeriods.length;
+  for (let i = lastUsed + 1; i < plannerPeriods.length; i++) {
+    if (!plannerPeriods[i].intensivo && ++vac >= buffer) { cut = i + 1; break; }
+  }
+  plannerPeriods = plannerPeriods.slice(0, cut);
 }
 
 function openPlanner() {
@@ -1115,7 +1196,7 @@ function openPlanner() {
   for (const id in plan) {
     if (!subjects[id] || (states[id] !== 'pending' && states[id] !== 'available')) delete plan[id];
   }
-  const need = Math.max(2, Math.ceil(remainingIds().length / AUTO_MAX));
+  const need = Math.max(2, Math.ceil(remainingIds().length / CAP_CUATRI));
   plannerPeriods = buildPeriods(need);
   // Extiende hasta cubrir asignaciones guardadas en períodos más lejanos
   let extra = 0;
@@ -1127,6 +1208,7 @@ function openPlanner() {
   const stale = [];
   for (const id in plan) if (periodIdx(plan[id]) < 0) { stale.push(subjName(id)); delete plan[id]; }
   const bounced = revalidatePlan();
+  trimTrailingPeriods();
   renderPlanner();
   document.getElementById('planner-overlay').style.display = 'flex';
   const msgs = [];
@@ -1154,7 +1236,6 @@ function plannerToast(msg) {
   plannerToastTimer = setTimeout(() => t.classList.remove('show'), 3500);
 }
 
-makeDropzone(document.getElementById('planner-pool'), null);
 document.getElementById('planner-overlay').addEventListener('mousedown', e => {
   if (e.target === e.currentTarget) closePlanner();
 });
